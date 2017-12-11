@@ -1,19 +1,28 @@
+local ScreenManager = require('lib.screenmanager.ScreenManager')
 local Screen = require('lib.screenmanager.Screen')
+local render = require('render')
 
 local MainScreen = {}
 
 function MainScreen.new()
     local self = Screen.new()
 
-    local x, y, w, h = 20, 20, 40, 20
+    local x, y = 0, 0
 
     function self:draw()
-        love.graphics.rectangle('fill', x, y, w, h)
+        render.draw_char("@", x, y, {255, 255, 255, 255}, {0, 0, 0, 0})
     end
 
-    function self:update(dt)
-        w = w + 2
-        h = h + 1
+    function self:keypressed(key)
+        if key == 'up' then
+            y = y - 1
+        elseif key == 'left' then
+            x = x - 1
+        elseif key == 'right' then
+            x = x + 1
+        elseif key == 'down' then
+            y = y + 1
+        end
     end
 
     return self
